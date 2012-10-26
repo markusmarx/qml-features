@@ -2,11 +2,21 @@
 
 #include "qmlutils.h"
 #include <qdeclarative.h>
+#include <QDeclarativeEngine>
+#include <QDeclarativeContext>
 
 void QmlFeaturesPlugin::registerTypes(const char *uri)
 {
     // @uri QmlFeatures
-    qmlRegisterUncreatableType<QmlUtils>(uri, 1, 0, "QmlUtils", QObject::tr("Cannot create seperate instance of QmlUtils."));
+    qmlRegisterType<QmlUtils>(uri, 1, 0, "QmlUtils");
+
+
+}
+
+void QmlFeaturesPlugin::initializeEngine(QDeclarativeEngine *engine, const char *uri)
+{
+
+    engine->rootContext()->setContextProperty("QmlUtil", new QmlUtils(this));
 
 }
 
