@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = qmlfeatures test
+SUBDIRS = qmlfeatures

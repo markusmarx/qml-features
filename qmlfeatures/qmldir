@@ -1,2 +1,4 @@
 plugin QmlFeatures
-CalendarNavigation CalendarNavigation.qml
+CalendarNavigation  CalendarNavigation.qml
+DatePicker          DatePicker.qml
+DateEdit            DateEdit.qml

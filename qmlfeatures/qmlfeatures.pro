@@ -18,9 +18,12 @@ HEADERS += \
     qmlutils.h
 
 OTHER_FILES = qmldir \
-    CalendarNavigation.qml
+    CalendarNavigation.qml \
+    DatePicker.qml \
+    common/utils.js \
+    DateEdit.qml
 
-QML_DIRS = images
+QML_DIRS = images common
 
 !equals(_PRO_FILE_PWD_, $$OUT_PWD) {
     copy_qmldir.target = $$OUT_PWD/qmldir
@@ -38,16 +41,16 @@ qmlfiles.sources = $$OTHER_FILES
 qmldirs.files = $$QML_DIRS
 qmldirs.sources = $$QML_DIRS
 
-unix {
-    maemo5 | !isEmpty(MEEGO_VERSION_MAJOR) {
-        installPath = /usr/lib/qt4/imports/$$replace(uri, \\., /)
-    } else {
-        installPath = $$[QT_INSTALL_IMPORTS]/$$replace(uri, \\., /)
-    }
-    qmldir.path = $$installPath
-    target.path = $$installPath
-    qmldirs.path = $$installPath
-    qmlfiles.path = $$installPath
-    INSTALLS += target qmldir qmlfiles qmldirs
+
+maemo5 | !isEmpty(MEEGO_VERSION_MAJOR) {
+    installPath = /usr/lib/qt4/imports/$$replace(uri, \\., /)
+} else {
+    installPath = $$[QT_INSTALL_IMPORTS]/$$replace(uri, \\., /)
 }
+qmldir.path = $$installPath
+target.path = $$installPath
+qmldirs.path = $$installPath
+qmlfiles.path = $$installPath
+INSTALLS += target qmldir qmlfiles qmldirs
+
 
