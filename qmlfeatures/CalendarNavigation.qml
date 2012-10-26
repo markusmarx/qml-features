@@ -1,12 +1,12 @@
 import QtQuick 1.1
-
-import QtQuick 1.0
-
+import QtDesktop 0.1
+import "common/utils.js" as QmlFeatureUtils
 Item {
     id: calendarNavigation
     property variant selectedDate: new Date()
     property color selectColor: "#ccedff"
     property color selectBorderColor: "#008df2"
+    signal dayClicked(date clickedDate)
 
     QtObject {
         id: d
@@ -108,10 +108,6 @@ Item {
         nextViewScale.origin.x = currentViewScale.origin.x
         nextViewScale.origin.y = currentViewScale.origin.y
 
-        //        console.debug("currentViewScale.x " + currentViewScale.origin.x)
-        //        console.debug("currentViewScale.y " + currentViewScale.origin.y)
-        //        console.debug("nextViewScale.x " + nextViewScale.origin.x)
-        //        console.debug("nextViewScale.y " + nextViewScale.origin.y)
     }
 
     /**
@@ -181,13 +177,13 @@ Item {
         case 0:
             view = dayViewComponent.createObject(calendarNavigation, options);
             view.model = fnLoadModel(date, view)
-            console.debug("create day view")
+            // console.debug("create day view")
             break;
         case 1:
             view = monthViewComponent.createObject(calendarNavigation, options)
             view.selectionIndex = date.getMonth()
             view.model = d.monthNames
-            console.debug("create month view")
+            // console.debug("create month view")
             break;
         case 2:
             view = monthViewComponent.createObject(calendarNavigation, options)
@@ -214,9 +210,7 @@ Item {
       */
     function fnAnimationComplete(anim) {
 
-        // if (p.currentView != dayView || p.currentViewType == 0) {
         d.currentView.destroy();
-        //}
         d.currentView = d.nextView;
         if (anim)
             anim.destroy()
@@ -238,7 +232,7 @@ Item {
         var month = da.getMonth();
         da.setDate(-1)
         da.setDate(da.getDate() - da.getDay()+1);
-        //console.log("load daymodel for " + p.currentDate);
+        //// console.log("load daymodel for " + p.currentDate);
 
         for (var i = 0; i < 42; i++) {
             if (fnEqualsDate(da, d.currentDate))
@@ -260,6 +254,9 @@ Item {
     Component.onCompleted: {
 
         // generate models
+        if (!QmlFeatureUtils.fnIsValidDate(selectedDate)) {
+            selectedDate = new Date()
+        }
 
         var dd = new Date(2012, 9,1)
         for (var i = 0; i < 7; i++) {
@@ -267,15 +264,11 @@ Item {
             dd.setDate(dd.getDate()+1)
         }
 
-
-
-
         dd = new Date(2012,0,1)
         for (var i = 0; i < 12; i++) {
             d.monthNames.append({name: Qt.formatDate(dd, "MMM"), inRange:true})
             dd.setMonth(dd.getMonth()+1)
         }
-
 
         d.currentView = fnCreateView(d.currentViewType, selectedDate, {})
         d.currentView.model = fnLoadModel(selectedDate, d.currentView)
@@ -284,13 +277,13 @@ Item {
                                                  parent, "calcTextWidth");
 
             // Use textElement.width for the width of the text
-        console.log(textElement.width)
+        // console.log(textElement.width)
         d.dayWidth = textElement.width
         d.dayHeight = textElement.height+5
         width = (d.dayWidth+5) * 7+1
         height = (d.dayHeight+5) *7 + d.headerHeight
 
-        d.monthViewWidth = (d.monthWidth+11)*3+d.monthWidth
+        d.monthViewWidth = (d.monthWidth+11)*3+d.monthWidth+1
         d.monthViewHeight = (d.monthHeight+11)*2+d.monthHeight
 
         width = Math.max(width, d.monthViewWidth)
@@ -322,6 +315,7 @@ Item {
         Rectangle {
             anchors.fill: parent
         }
+
         Image {
             anchors.left: parent.left
             source: "images/left_navi.svg"
@@ -359,10 +353,11 @@ Item {
             MouseArea {
                 id:header_mousearea
                 anchors.fill: parent
-                hoverEnabled: true
+                hoverEnabled: d.currentViewType < 2
                 onClicked: {
                     fnViewZoomOut()
                 }
+
             }
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -374,7 +369,7 @@ Item {
                 }
 
                 Image {
-
+                    visible: d.currentViewType < 2
                     source: "images/zoom_out.svg"
 
                 }
@@ -421,12 +416,10 @@ Item {
                         z:0
                         property ListModel dayModel
 
-
-
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.right: parent.right
-                            text: qsTr(name)
+                            text: name
                             font.bold: true
 
                         }
@@ -474,6 +467,7 @@ Item {
                                 selectedDate = date
                                 d.currentDate = date
                                 selectionIndex = index
+                                dayClicked(date)
                             }
                         }
 
