@@ -2,8 +2,6 @@ import QtQuick 1.1
 import QtDesktop 0.1
 
 Item {
-    id: labelitem
-
     property int labelPos: Qt.AlignTop
     property int labelAlign: Qt.AlignLeft
     property int labelMargin: 0
@@ -11,7 +9,6 @@ Item {
 
     Component.onCompleted: {
 
-        children[0] = _labelComp.createObject(labelitem)
         var layoutDirection =
                 (labelPos == Qt.AlignTop || labelPos == Qt.AlignBottom)? 0:1
 
