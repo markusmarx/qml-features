@@ -10,6 +10,8 @@ FocusScope {
     focus: false
     property date date
     property alias font: dateField.font
+    property string dateFormat: "dd.MM.yyyy"
+    property alias inputMask: dateField.inputMask
 
     property Item  ___datePicker
 
@@ -19,10 +21,10 @@ FocusScope {
     }
 
     function fnOpenCalendar(myFocus) {
-        if (!dateField.focus) {
-            fnCloseCalendar(date, true)
+        if (!myFocus) {
+            fnCloseCalendar(date, false)
         } else {
-            var theDate = QmlUtil.parseDate(dateField.text, "dd.MM.yyyy")
+            var theDate = QmlUtil.parseDate(dateField.text, dateFormat)
 
             if (!QmlFeatureUtils.fnIsValidDate(date)) {
                 theDate = new Date()
@@ -32,7 +34,8 @@ FocusScope {
 
             ___datePicker = datePicker.createObject(container,
                                                     {dateField: dateField,
-                                                        pickedDate: theDate})
+                                                        pickedDate: theDate, opacity: 0})
+            ___datePicker.opacity = 1
             dateField.cursorPosition = 0
 
         }
@@ -46,7 +49,7 @@ FocusScope {
 
         if (clear) dateField.text = ""
         if (QmlFeatureUtils.fnIsValidDate(pickedDate)) {
-            dateField.text = Qt.formatDate(pickedDate, "dd.MM.yyyy")
+            dateField.text = Qt.formatDate(pickedDate, dateFormat)
             date = pickedDate
         }
 
@@ -56,10 +59,14 @@ FocusScope {
         id:dateField
 
         Keys.onEscapePressed: fnCloseCalendar(date, true)
-        Keys.onReturnPressed: fnCloseCalendar(QmlUtil.parseDate(text, "dd.MM.yyyy"), false)
+        Keys.onReturnPressed: fnCloseCalendar(QmlUtil.parseDate(text, dateFormat), false)
+        Keys.onTabPressed: {
+            fnCloseCalendar(QmlUtil.parseDate(text, dateFormat), false)
+            event.accepted = false
+        }
 
         onActiveFocusChanged: {
-            fnOpenCalendar(focus)
+            fnOpenCalendar(parent.focus)
         }
     }
 

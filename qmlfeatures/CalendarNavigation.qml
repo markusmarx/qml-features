@@ -270,8 +270,7 @@ Item {
             dd.setMonth(dd.getMonth()+1)
         }
 
-        d.currentView = fnCreateView(d.currentViewType, selectedDate, {})
-        d.currentView.model = fnLoadModel(selectedDate, d.currentView)
+        var startView = fnCreateView(d.currentViewType, selectedDate, {})
 
         var textElement = Qt.createQmlObject('import QtQuick 1.0; Text { text: "Wed"}',
                                                  parent, "calcTextWidth");
@@ -292,6 +291,8 @@ Item {
         textElement.destroy()
 
         fnUpdateHeader()
+
+        d.currentView = startView
 
     }
 
