@@ -5,7 +5,7 @@ Item {
     property int labelPos: Qt.AlignTop
     property int labelAlign: Qt.AlignLeft
     property int labelMargin: 0
-    property int itemMargin: 5
+    property int itemMargin: 0
 
     Component.onCompleted: {
 

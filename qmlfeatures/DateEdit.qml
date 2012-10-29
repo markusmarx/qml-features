@@ -12,7 +12,9 @@ FocusScope {
     property alias font: dateField.font
     property string dateFormat: "dd.MM.yyyy"
     property alias inputMask: dateField.inputMask
-
+    property alias textColor: dateField.textColor
+    property alias fieldWidth: dateField.width
+    property alias fieldHeight: dateField.height
     property Item  ___datePicker
 
     onFocusChanged: {
@@ -66,8 +68,28 @@ FocusScope {
         }
 
         onActiveFocusChanged: {
-            fnOpenCalendar(parent.focus)
+            if (!parent.focus)
+                fnOpenCalendar(parent.focus)
         }
+    }
+    CursorArea {
+        anchors.fill: parent
+
+        cursor: Qt.ArrowCursor
+    }
+    Image {
+        source: "images/calendar.svg"
+        width: 16
+        height: 16
+        anchors.verticalCenter: dateField.verticalCenter
+        anchors.right: dateField.right
+        anchors.rightMargin: 5
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: fnOpenCalendar(true)
+        }
+
     }
 
 
@@ -77,8 +99,8 @@ FocusScope {
             Component.onCompleted: {
                 opacity = 1
                 var pos = dateField.mapToItem(parent, dateField.x, dateField.y)
-                x = pos.x
-                y = pos.y + dateField.height + 1
+                x = pos.x+20
+                y = pos.y + dateField.height + 15
             }
 
             onDayPicked: {
