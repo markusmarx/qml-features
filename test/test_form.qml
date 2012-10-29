@@ -126,13 +126,11 @@ Item {
 
                 }
             }
-            BorderImage {
-                id: name
-                source: "tooltip.svg"
-                width: 200; height: 100
-                border.left: 15; border.top: 15
-                border.right: 15; border.bottom: 10
+
+            ToolTip {
+
             }
+
         }
 
 
