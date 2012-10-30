@@ -43,7 +43,7 @@ Item {
         if (d.currentViewType > 1 || (d.anim && d.anim.running))
             return;
 
-        d.nextView = fnCreateView(d.currentViewType+1, d.currentDate, {})
+        d.nextView = fnCreateView(d.currentViewType+1, d.currentDate, {opacity:0})
         var selId = d.nextView.selectionIndex
 
         var currentViewScale = d.currentView.myScale;
@@ -75,7 +75,7 @@ Item {
             break;
         }
 
-        d.nextView = fnCreateView(d.currentViewType-1 ,newDate, {z:0})
+        d.nextView = fnCreateView(d.currentViewType-1 ,newDate, {z:0,opacity:0})
         d.currentView.z = 1
 
         var selId = newMonthIdx
@@ -563,6 +563,7 @@ Item {
             PropertyAnimation {
                 target: d.nextView
                 property: "opacity"
+                easing.type: Easing.OutCurve
                 to: 1
             }
 
@@ -583,6 +584,7 @@ Item {
             PropertyAnimation {
                 target: d.currentView
                 property: "opacity"
+                easing.type: Easing.OutCurve
                 to: 0
             }
 
@@ -618,11 +620,13 @@ Item {
             PropertyAnimation {
                 target: d.currentView
                 property: "opacity"
+                easing.type: Easing.OutCurve
                 to: 0
             }
             PropertyAnimation {
                 target: d.nextView
                 property: "opacity"
+                easing.type: Easing.InCurve
                 to: 1
             }
 
