@@ -550,12 +550,13 @@ Item {
 
                 target:d.currentView.myScale
                 properties: "xScale, yScale"
-                easing.type: Easing.OutCubic
+                easing.type: Easing.InCurve
                 from: 1; to: 0.5
             }
             PropertyAnimation {
                 target: d.nextView.myScale
                 properties: "xScale, yScale"
+                easing.type: Easing.OutCurve
                 from: 4; to: 1
             }
 
@@ -604,11 +605,13 @@ Item {
 
                 target: d.nextView.myScale
                 properties: "xScale, yScale"
+                easing.type: Easing.InCurve
                 from: 0.3; to: 1
             }
             PropertyAnimation {
                 target: d.currentView.myScale
                 properties: "xScale, yScale"
+                easing.type: Easing.OutCurve
                 from: 1; to: 4
             }
 

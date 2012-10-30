@@ -24,7 +24,7 @@ FocusScope {
 
     function fnOpenCalendar(myFocus) {
         if (!myFocus) {
-            fnCloseCalendar(date, false)
+            fnCloseCalendar(QmlUtil.parseDate(dateField.text, dateFormat), false)
         } else if (!Qt.isQtObject(___datePicker)) {
             var theDate = QmlUtil.parseDate(dateField.text, dateFormat)
 
@@ -33,17 +33,10 @@ FocusScope {
             }
 
             var container = QmlFeatureUtils.fnGetItemRoot(dateField)
-
             ___datePicker = datePicker.createObject(container,
                                                     {dateField: dateField,
                                                         pickedDate: theDate, opacity: 0})
             ___datePicker.opacity = 1
-
-//            if (!dateField.activeFocus) {
-//                dateField.forceActiveFocus()
-//                dateField.cursorPosition = 0
-
-//            }
 
 
         }
@@ -74,14 +67,13 @@ FocusScope {
         }
 
         onActiveFocusChanged: {
-            if (!parent.focus)
-                fnOpenCalendar(parent.focus)
+            fnOpenCalendar(parent.focus)
         }
     }
     CursorArea {
         anchors.fill: parent
-
         cursor: Qt.ArrowCursor
+
     }
     Image {
         source: "images/calendar.svg"

@@ -32,12 +32,15 @@ Item {
                     }
 
                     TextField {
+                        id: forename
                         textColor: "#2B2B2B"
                         width: 250
                         font {
                             family: "Arial"
                             pixelSize: 20
                         }
+
+                        KeyNavigation.tab: surname
                     }
 
                 }
@@ -55,19 +58,21 @@ Item {
                     }
 
                     TextField {
+                        id: surname
                         textColor: "#2B2B2B"
                         width: 250
                         font {
                             family: "Arial"
                             pixelSize: 20
                         }
+                        KeyNavigation.tab: input_birth
                     }
 
                 }
             }
 
             Row {
-                spacing: 10
+                spacing: 40
                 LabelLayout {
                     labelPos: Qt.AlignBottom
                     labelMargin: 5
@@ -90,13 +95,14 @@ Item {
                             family: "Arial"
                             pixelSize: 20
                         }
+                        KeyNavigation.tab: input_female
                     }
 
                 }
 
                 LabelLayout {
                     labelPos: Qt.AlignBottom
-                    labelMargin: 5
+                    labelMargin: 0
                     Label {
                         text: "Geschlecht"
                         color: "#585858"
@@ -108,19 +114,36 @@ Item {
                     }
 
                     Flow {
-
                         CheckBox {
-                            text: "M"
-                            width: 50
-                            height: input_birth.height-1
-                            onCheckedChanged: focus = true
-
-                        }
-                        CheckBox {
+                            id:input_female
                             text: "W"
                             width: 50
                             height: input_birth.height-1
-                            onCheckedChanged: focus = true
+
+                            onCheckedChanged: {
+                                if (checked)
+                                    input_male.checked = false
+
+                            }
+                            onClicked: {
+                                focus = true
+                            }
+
+                            KeyNavigation.tab: input_male
+                        }
+                        CheckBox {
+                            id:input_male
+                            text: "M"
+                            width: 50
+                            height: input_birth.height-1
+                            onCheckedChanged: {
+                                if (checked)
+                                    input_female.checked = false
+                            }
+
+                            onClicked: {
+                                focus = true
+                            }
                         }
                     }
 
