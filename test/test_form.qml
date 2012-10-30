@@ -1,18 +1,13 @@
 import QtQuick 1.1
 import QtDesktop 0.1
+
 import QmlFeatures 1.0
 
 Item {
     width: 800
     height: 600
-
-
     property int formLabelPos: Qt.AlignTop
-
-
     Component.onCompleted: {
-
-
     }
 
 
@@ -36,14 +31,8 @@ Item {
 
                     errorRectangle: defaultErrorRec
                     error: input_forename.text.length == 0
-                    Label {
+                    SimpleFormLabel {
                         text: "Vorname"
-                        color: "#585858"
-                        font {
-                            family: "Arial"
-                            pixelSize: 12
-                            bold:true
-                        }
                     }
 
                     TextField {
@@ -55,25 +44,23 @@ Item {
                             pixelSize: 20
                         }
 
-                        KeyNavigation.tab: surname
+                        KeyNavigation.tab: input_surname
                     }
 
                 }
+
                 LabelLayout {
                     labelPos: formLabelPos
                     labelMargin: 5
-                    Label {
+
+                    errorRectangle: defaultErrorRec
+                    error: input_surname.text.length == 0
+                    SimpleFormLabel {
                         text: "Nachname"
-                        color: "#585858"
-                        font {
-                            family: "Arial"
-                            pixelSize: 12
-                            bold:true
-                        }
                     }
 
                     TextField {
-                        id: surname
+                        id: input_surname
                         textColor: "#2B2B2B"
                         width: 250
                         font {
@@ -91,14 +78,8 @@ Item {
                 LabelLayout {
                     labelPos: formLabelPos
                     labelMargin: 5
-                    Label {
+                    SimpleFormLabel {
                         text: "Geboren am"
-                        color: "#585858"
-                        font {
-                            family: "Arial"
-                            pixelSize: 12
-                            bold:true
-                        }
                     }
 
                     DateEdit {

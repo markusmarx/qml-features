@@ -14,7 +14,7 @@ Item {
     property Item _errorRectangleItem
 
     onErrorChanged: {
-        if (error) {
+        if (error && Qt.isQtObject(errorRectangle)) {
             _errorRectangleItem = errorRectangle.createObject(
                         label_layout,
                         {width: children[1].width, height: children[1].height,
