@@ -38,7 +38,13 @@ FocusScope {
                                                     {dateField: dateField,
                                                         pickedDate: theDate, opacity: 0})
             ___datePicker.opacity = 1
-            dateField.cursorPosition = 0
+
+//            if (!dateField.activeFocus) {
+//                dateField.forceActiveFocus()
+//                dateField.cursorPosition = 0
+
+//            }
+
 
         }
     }
@@ -87,7 +93,10 @@ FocusScope {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: fnOpenCalendar(true)
+            onClicked: {
+                fnOpenCalendar(true)
+                dateField.forceActiveFocus()
+            }
         }
 
     }
@@ -95,27 +104,75 @@ FocusScope {
 
     Component {
         id: datePicker
-        DatePicker {
+
+
+        Item {
+            width:calNav.width+10
+            height:calNav.height+40
+
+            property Item dateField
+            signal dayPicked(date date)
+            property alias pickedDate: calNav.selectedDate
+
             Component.onCompleted: {
                 opacity = 1
-                var pos = dateField.mapToItem(parent, dateField.x, dateField.y)
-                x = pos.x+20
-                y = pos.y + dateField.height + 15
+                var pos = dateField.mapToItem(parent, dateField.x+dateField.width-10, dateField.y)
+                x = pos.x - width/2
+                y = pos.y + dateField.height - 5
             }
 
             onDayPicked: {
                 fnCloseCalendar(pickedDate, false)
             }
 
+            onFocusChanged: {
+                console.log(focus)
+            }
+
+            onActiveFocusChanged: {
+                console.log(activeFocus)
+            }
+
+
+            Rectangle {
+                anchors.top: parent.top
+                anchors.topMargin: image.height-3
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+
+                border.color:"grey"
+                border.width: 1
+            }
+
+            Image {
+                id:image
+                anchors.top: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: "images/tooltip.svg"
+
+            }
+
+            CalendarNavigation {
+
+                id:calNav
+                anchors.horizontalCenter:parent.horizontalCenter
+                anchors.bottom:parent.bottom
+                onDayClicked: {
+                    dayPicked(selectedDate)
+                }
+
+            }
+
+
+
             Behavior on opacity {
                 NumberAnimation { duration: 200}
             }
 
-            CursorArea {
-                anchors.fill: parent
-                cursor: CursorArea.ArrowCursor
-            }
+
         }
+
 
     }
 
