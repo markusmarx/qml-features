@@ -25,7 +25,7 @@ FocusScope {
     function fnOpenCalendar(myFocus) {
         if (!myFocus) {
             fnCloseCalendar(date, false)
-        } else {
+        } else if (!Qt.isQtObject(___datePicker)) {
             var theDate = QmlUtil.parseDate(dateField.text, dateFormat)
 
             if (!QmlFeatureUtils.fnIsValidDate(date)) {
