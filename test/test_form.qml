@@ -93,6 +93,9 @@ Item {
                             if (!activeFocus && input_surname.text.length == 0) {
                                 parent.error = true
                                 parent.fnHideErrorMessage()
+                            } else if (!activeFocus && input_surname.text.length > 0) {
+                                parent.error = false
+                                parent.fnHideErrorMessage()
                             }
                         }
                     }
