@@ -10,8 +10,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   width="50"
-   height="25"
+   width="20"
+   height="11"
    id="svg2"
    inkscape:version="0.48.2 r9819"
    sodipodi:docname="tooltip.svg">
@@ -28,9 +28,9 @@
      inkscape:window-height="994"
      id="namedview2995"
      showgrid="false"
-     inkscape:zoom="18.791284"
-     inkscape:cx="18.990474"
-     inkscape:cy="16.756861"
+     inkscape:zoom="22.627417"
+     inkscape:cx="21.126802"
+     inkscape:cy="-3.3940516"
      inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1"
@@ -45,21 +45,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <rect
-     style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     id="rect3789"
-     width="42.413277"
-     height="3.5654826"
-     x="2.9801049"
-     y="21.487734" />
   <path
-     d="M 45.40625,21.652184 24.34375,0.5896878 3.25,21.652184"
+     d="M 17.391438,10.060507 9.6023802,0.47083837 1.8017672,10.060507"
      id="rect2992"
-     style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+     style="fill:#333333;stroke:#000000;stroke-width:0.41033103999999998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccc" />
 </svg>

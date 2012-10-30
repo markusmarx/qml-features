@@ -2,10 +2,34 @@ import QtQuick 1.1
 import QtDesktop 0.1
 
 Item {
+    id: label_layout
     property int labelPos: Qt.AlignTop
     property int labelAlign: Qt.AlignLeft
     property int labelMargin: 0
     property int itemMargin: 0
+
+    property bool error: false
+    property Component errorRectangle
+
+    property Item _errorRectangleItem
+
+    onErrorChanged: {
+        if (error) {
+            _errorRectangleItem = errorRectangle.createObject(
+                        label_layout,
+                        {width: children[1].width, height: children[1].height,
+                        opacity: 0})
+            _errorRectangleItem.x = children[1].x + _errorRectangleItem.x
+            _errorRectangleItem.y = children[1].y + _errorRectangleItem.y
+            _errorRectangleItem.opacity = 1
+
+        } else if (Qt.isQtObject(_errorRectangleItem)) {
+                _errorRectangleItem.opacity = 0
+                _errorRectangleItem.destroy(500);
+        }
+
+    }
+
 
     Component.onCompleted: {
 

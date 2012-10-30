@@ -5,6 +5,17 @@ import QmlFeatures 1.0
 Item {
     width: 800
     height: 600
+
+
+    property int formLabelPos: Qt.AlignTop
+
+
+    Component.onCompleted: {
+
+
+    }
+
+
     FocusScope {
         Column {
             anchors.fill: parent
@@ -19,8 +30,12 @@ Item {
             Row {
                 spacing: 10
                 LabelLayout {
-                    labelPos: Qt.AlignBottom
+                    id:lbl
+                    labelPos: formLabelPos
                     labelMargin: 5
+
+                    errorRectangle: defaultErrorRec
+                    error: input_forename.text.length == 0
                     Label {
                         text: "Vorname"
                         color: "#585858"
@@ -32,7 +47,7 @@ Item {
                     }
 
                     TextField {
-                        id: forename
+                        id: input_forename
                         textColor: "#2B2B2B"
                         width: 250
                         font {
@@ -45,7 +60,7 @@ Item {
 
                 }
                 LabelLayout {
-                    labelPos: Qt.AlignBottom
+                    labelPos: formLabelPos
                     labelMargin: 5
                     Label {
                         text: "Nachname"
@@ -74,7 +89,7 @@ Item {
             Row {
                 spacing: 40
                 LabelLayout {
-                    labelPos: Qt.AlignBottom
+                    labelPos: formLabelPos
                     labelMargin: 5
                     Label {
                         text: "Geboren am"
@@ -101,8 +116,12 @@ Item {
                 }
 
                 LabelLayout {
-                    labelPos: Qt.AlignBottom
+                    labelPos: formLabelPos
                     labelMargin: 0
+
+                    errorRectangle: sexErrorRec
+                    error: !input_male.checked & !input_female.checked
+
                     Label {
                         text: "Geschlecht"
                         color: "#585858"
@@ -113,7 +132,8 @@ Item {
                         }
                     }
 
-                    Flow {
+                    Row {
+                        id:input_sex
                         CheckBox {
                             id:input_female
                             text: "W"
@@ -154,6 +174,34 @@ Item {
 
 
 
+    }
+
+    Component {
+        id: sexErrorRec
+        Rectangle {
+            border.color: Qt.lighter("red")
+            color: Qt.lighter("red")
+            border.width: 2
+            x: -5
+            z: -1
+
+            Behavior on opacity {
+                NumberAnimation { duration: 500}
+            }
+        }
+    }
+
+    Component {
+        id: defaultErrorRec
+        Rectangle {
+            border.color: Qt.lighter("red")
+            color: "transparent"
+            border.width: 2
+
+            Behavior on opacity {
+                NumberAnimation {duration: 500}
+            }
+        }
     }
 
 }

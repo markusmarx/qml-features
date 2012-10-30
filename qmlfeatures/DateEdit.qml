@@ -96,10 +96,9 @@ FocusScope {
     Component {
         id: datePicker
 
-
         Item {
-            width:calNav.width+10
-            height:calNav.height+40
+            width:calNav.width
+            height:calNav.height+image.height+5
 
             property Item dateField
             signal dayPicked(date date)
@@ -127,18 +126,19 @@ FocusScope {
 
             Rectangle {
                 anchors.top: parent.top
-                anchors.topMargin: image.height-3
+                anchors.topMargin: image.height-1
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
                 border.color:"grey"
-                border.width: 1
+                border.width: 2
+                radius: 3
             }
 
             Image {
                 id:image
-                anchors.top: parent.top
+                fillMode: Image.PreserveAspectFit
                 anchors.horizontalCenter: parent.horizontalCenter
                 source: "images/tooltip.svg"
 
