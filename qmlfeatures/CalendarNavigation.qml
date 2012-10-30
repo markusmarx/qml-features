@@ -550,6 +550,7 @@ Item {
 
                 target:d.currentView.myScale
                 properties: "xScale, yScale"
+                easing.type: Easing.OutCubic
                 from: 1; to: 0.5
             }
             PropertyAnimation {

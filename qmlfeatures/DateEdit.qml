@@ -101,7 +101,6 @@ FocusScope {
 
     }
 
-
     Component {
         id: datePicker
 
