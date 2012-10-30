@@ -28,9 +28,9 @@ Item {
                     id:lbl
                     labelPos: formLabelPos
                     labelMargin: 5
-
                     errorRectangle: defaultErrorRec
-                    error: input_forename.text.length == 0
+                    errorMessage: defaultErrorMessage
+
                     SimpleFormLabel {
                         text: "Vorname"
                     }
@@ -45,6 +45,21 @@ Item {
                         }
 
                         KeyNavigation.tab: input_surname
+                        onActiveFocusChanged: {
+                            if (activeFocus && parent.error) {
+                                parent.fnShowErrorMessage("Einen Vornamen eingeben!")
+                            }
+
+                            if (!activeFocus && input_forename.text.length == 0) {
+                                parent.error = true
+                                parent.fnHideErrorMessage()
+                            } else if (!activeFocus && input_forename.text.length > 0) {
+                                parent.error = false
+                                parent.fnHideErrorMessage()
+                            }
+
+
+                        }
                     }
 
                 }
@@ -54,7 +69,8 @@ Item {
                     labelMargin: 5
 
                     errorRectangle: defaultErrorRec
-                    error: input_surname.text.length == 0
+                    errorMessage: defaultErrorMessage
+
                     SimpleFormLabel {
                         text: "Nachname"
                     }
@@ -68,6 +84,17 @@ Item {
                             pixelSize: 20
                         }
                         KeyNavigation.tab: input_birth
+
+                        onActiveFocusChanged: {
+                            if (activeFocus && parent.error) {
+                                parent.fnShowErrorMessage("Einen Nachnamen eingeben!")
+                            }
+
+                            if (!activeFocus && input_surname.text.length == 0) {
+                                parent.error = true
+                                parent.fnHideErrorMessage()
+                            }
+                        }
                     }
 
                 }
@@ -78,6 +105,10 @@ Item {
                 LabelLayout {
                     labelPos: formLabelPos
                     labelMargin: 5
+
+                    errorRectangle: defaultErrorRec
+                    errorMessage: topErrorMessage
+
                     SimpleFormLabel {
                         text: "Geboren am"
                     }
@@ -92,6 +123,17 @@ Item {
                             pixelSize: 20
                         }
                         KeyNavigation.tab: input_female
+
+                        onActiveFocusChanged: {
+                            if (activeFocus && parent.error) {
+                                parent.fnShowErrorMessage("Ein Datum eingeben!")
+                            }
+
+                            if (!activeFocus && input_birth.text.length == 0) {
+                                parent.error = true
+                                parent.fnHideErrorMessage()
+                            }
+                        }
                     }
 
                 }
@@ -147,21 +189,16 @@ Item {
                             }
                         }
                     }
-
                 }
             }
-
         }
-
-
-
     }
 
     Component {
         id: sexErrorRec
         Rectangle {
-            border.color: Qt.lighter("red")
-            color: Qt.lighter("red")
+            border.color: "#FF7777"
+            color: "#FF7777"
             border.width: 2
             x: -5
             z: -1
@@ -175,12 +212,51 @@ Item {
     Component {
         id: defaultErrorRec
         Rectangle {
-            border.color: Qt.lighter("red")
+            border.color: "#cc0000"
             color: "transparent"
             border.width: 2
 
             Behavior on opacity {
                 NumberAnimation {duration: 500}
+            }
+        }
+    }
+
+    Component {
+        id: defaultErrorMessage
+        ToolTip {
+            width: text.width+20
+            height: text.height+15
+            property alias message: text.text
+            Text {
+                id:text
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+            }
+
+            Behavior on opacity {
+                NumberAnimation { duration:500}
+            }
+        }
+    }
+
+    Component {
+        id: topErrorMessage
+        ToolTip {
+            width: text.width+20
+            height: text.height+15
+            anchor: Qt.AlignTop
+            property alias message: text.text
+            Text {
+                id:text
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                color: "white"
+            }
+
+            Behavior on opacity {
+                NumberAnimation { duration:500}
             }
         }
     }

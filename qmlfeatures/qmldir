@@ -3,3 +3,4 @@ CalendarNavigation  CalendarNavigation.qml
 DatePicker          DatePicker.qml
 DateEdit            DateEdit.qml
 LabelLayout         LabelLayout.qml
+ToolTip             ToolTip.qml

@@ -97,8 +97,8 @@ FocusScope {
         id: datePicker
 
         Item {
-            width:calNav.width
-            height:calNav.height+image.height+5
+            width:calNav.width + 5
+            height:calNav.height+image.height+2
 
             property Item dateField
             signal dayPicked(date date)
@@ -106,9 +106,9 @@ FocusScope {
 
             Component.onCompleted: {
                 opacity = 1
-                var pos = dateField.mapToItem(parent, dateField.x+dateField.width-10, dateField.y)
-                x = pos.x - width/2
-                y = pos.y + dateField.height - 5
+                var pos = dateEdit.mapToItem(parent, dateEdit.x+dateEdit.width-10, dateEdit.y)
+                x = pos.x - width/2 - 16 - 5
+                y = pos.y + dateField.height - 20
             }
 
             onDayPicked: {

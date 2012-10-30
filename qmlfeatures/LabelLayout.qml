@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import QtDesktop 0.1
+import "common/utils.js" as Utils
 
 Item {
     id: label_layout
@@ -10,8 +11,27 @@ Item {
 
     property bool error: false
     property Component errorRectangle
-
     property Item _errorRectangleItem
+
+    property Component errorMessage
+    property Item _errorMessage
+
+    function fnShowErrorMessage(message) {
+        var root = Utils.fnGetItemRoot(label_layout)
+        _errorMessage = errorMessage.createObject(root, {message: message, opacity: 0})
+        _errorMessage.opacity = 1
+        var pos = root.mapFromItem(children[1], children[1].width,
+                                   _errorMessage.anchor == Qt.AlignBottom?children[1].height: children[1].y)
+        _errorMessage.y = _errorMessage.anchor == Qt.AlignBottom?pos.y:pos.y-_errorMessage.height - 15
+        _errorMessage.x = pos.x - children[1].width/4 - _errorMessage.width/2
+    }
+
+    function fnHideErrorMessage() {
+        if (Qt.isQtObject(_errorMessage)) {
+            _errorMessage.opacity = 0
+            _errorMessage.destroy(500)
+        }
+    }
 
     onErrorChanged: {
         if (error && Qt.isQtObject(errorRectangle)) {

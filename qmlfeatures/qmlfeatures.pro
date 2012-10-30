@@ -22,7 +22,8 @@ OTHER_FILES = qmldir \
     DatePicker.qml \
     common/utils.js \
     DateEdit.qml \
-    LabelLayout.qml
+    LabelLayout.qml \
+    ToolTip.qml
 
 QML_DIRS = images common
 
