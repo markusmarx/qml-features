@@ -28,7 +28,7 @@ Item {
                     labelPos: formLabelPos
                     labelMargin: 5
                     errorRectangle: defaultErrorRec
-                    errorMessage: topErrorMessage
+                    errorMessage: defaultErrorMessage
 
                     SimpleFormLabel {
                         text: "Vorname"
@@ -45,14 +45,15 @@ Item {
 
                         KeyNavigation.tab: input_surname
                         onActiveFocusChanged: {
-                            if (activeFocus && parent.error) {
+                            var f = activeFocus || focus
+                            if (f && parent.error) {
                                 parent.fnShowErrorMessage("Einen Vornamen eingeben!")
                             }
 
-                            if (!activeFocus && input_forename.text.length == 0) {
+                            if (!f && input_forename.text.length == 0) {
                                 parent.error = true
                                 parent.fnHideErrorMessage()
-                            } else if (!activeFocus && input_forename.text.length > 0) {
+                            } else if (!f && input_forename.text.length > 0) {
                                 parent.error = false
                                 parent.fnHideErrorMessage()
                             }
@@ -139,12 +140,12 @@ Item {
                             }
 
                             if (activeFocus && parent.error) {
-                                parent.fnShowErrorMessage(validStr)
+                                parent.fnShowErrorMessage("Ein Datum eingeben!")
                             }
 
 
 
-                            if (!activeFocus && !valid) {
+                            if (!activeFocus && input_birth.text.length == 0) {
                                 parent.error = true
                                 parent.fnHideErrorMessage()
                             } else if (!activeFocus && valid) {

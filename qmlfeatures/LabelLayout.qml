@@ -12,6 +12,7 @@ Item {
     property bool error: false
     property Component errorRectangle
     property Item _errorRectangleItem
+    property string errorMsg
 
     property Component errorMessage
     property Item _errorMessage
