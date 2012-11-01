@@ -4,7 +4,7 @@ import "common/utils.js" as Utils
 
 Item {
     id: label_layout
-    property int labelPos: Qt.AlignTop
+    property int labelPos: Qt.AlignBottom
     property int labelAlign: Qt.AlignLeft
     property int labelMargin: 0
     property int itemMargin: 0
@@ -16,14 +16,16 @@ Item {
     property Component errorMessage
     property Item _errorMessage
 
+
     function fnShowErrorMessage(message) {
         var root = Utils.fnGetItemRoot(label_layout)
         _errorMessage = errorMessage.createObject(root, {message: message, opacity: 0})
         _errorMessage.opacity = 1
-        var pos = root.mapFromItem(children[1], children[1].width,
-                                   _errorMessage.anchor == Qt.AlignBottom?children[1].height: children[1].y)
-        _errorMessage.y = _errorMessage.anchor == Qt.AlignBottom?pos.y:pos.y-_errorMessage.height - 15
-        _errorMessage.x = pos.x - children[1].width/4 - _errorMessage.width/2
+        var pos = root.mapFromItem(label_layout, label_layout.width,
+                                   _errorMessage.anchor == Qt.AlignBottom?label_layout.y+label_layout.height: label_layout.y)
+
+        _errorMessage.y = _errorMessage.anchor == Qt.AlignBottom?pos.y:pos.y-_errorMessage.height
+        _errorMessage.x = pos.x - label_layout.width/4 - _errorMessage.width/2
     }
 
     function fnHideErrorMessage() {

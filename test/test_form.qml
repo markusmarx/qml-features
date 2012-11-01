@@ -7,8 +7,6 @@ Item {
     width: 800
     height: 600
     property int formLabelPos: Qt.AlignTop
-    Component.onCompleted: {
-    }
 
 
     FocusScope {
@@ -17,6 +15,7 @@ Item {
             spacing: 10
             Text {
                 text: qsTr("Allgemeine Informationen zur Person")
+                color: "#D4D0C8"
                 font {
                     family: "Arial"
                     pixelSize: 16
@@ -29,7 +28,7 @@ Item {
                     labelPos: formLabelPos
                     labelMargin: 5
                     errorRectangle: defaultErrorRec
-                    errorMessage: defaultErrorMessage
+                    errorMessage: topErrorMessage
 
                     SimpleFormLabel {
                         text: "Vorname"
@@ -86,10 +85,12 @@ Item {
                         KeyNavigation.tab: input_birth
 
                         onActiveFocusChanged: {
+
+                            // show only error on foucs
                             if (activeFocus && parent.error) {
                                 parent.fnShowErrorMessage("Einen Nachnamen eingeben!")
                             }
-
+                            // if focus is out
                             if (!activeFocus && input_surname.text.length == 0) {
                                 parent.error = true
                                 parent.fnHideErrorMessage()
@@ -98,6 +99,8 @@ Item {
                                 parent.fnHideErrorMessage()
                             }
                         }
+
+
                     }
 
                 }
@@ -128,12 +131,24 @@ Item {
                         KeyNavigation.tab: input_female
 
                         onActiveFocusChanged: {
-                            if (activeFocus && parent.error) {
-                                parent.fnShowErrorMessage("Ein Datum eingeben!")
+                            var valid = parseInt(text.charAt(0)) >= 0
+                            var validStr = qsTr("Ein Datum eingeben!")
+                            if (valid && !validDate) {
+                                valid = false
+                                validStr = qsTr("Ein gültiges Datum eingeben. \n(Bsp: 12.10.2012)")
                             }
 
-                            if (!activeFocus && input_birth.text.length == 0) {
+                            if (activeFocus && parent.error) {
+                                parent.fnShowErrorMessage(validStr)
+                            }
+
+
+
+                            if (!activeFocus && !valid) {
                                 parent.error = true
+                                parent.fnHideErrorMessage()
+                            } else if (!activeFocus && valid) {
+                                parent.error = false
                                 parent.fnHideErrorMessage()
                             }
                         }
@@ -146,7 +161,17 @@ Item {
                     labelMargin: 0
 
                     errorRectangle: sexErrorRec
-                    error: !input_male.checked & !input_female.checked
+                    errorMessage: topErrorMessage
+
+                    property bool wholeFocus
+
+                    function fnCheckError() {
+                        if (!input_female.checked && !input_male.checked) {
+                            error = true
+                        } else {
+                            error = false
+                        }
+                    }
 
                     Label {
                         text: "Geschlecht"
@@ -158,40 +183,73 @@ Item {
                         }
                     }
 
+
+
+
                     Row {
                         id:input_sex
+
                         CheckBox {
                             id:input_female
                             text: "W"
                             width: 50
                             height: input_birth.height-1
+                            onContainsMouseChanged: {
+                                if (containsMouse && parent.parent.error) {
+                                    parent.parent.fnShowErrorMessage("Welches Geschlecht hat die Person?")
+                                } else {
+                                    parent.parent.fnHideErrorMessage()
+                                }
+                            }
 
                             onCheckedChanged: {
                                 if (checked)
                                     input_male.checked = false
-
+                                parent.parent.fnCheckError();
                             }
                             onClicked: {
                                 focus = true
                             }
 
+                            onActiveFocusChanged: {
+
+                            }
+
                             KeyNavigation.tab: input_male
+
                         }
                         CheckBox {
                             id:input_male
                             text: "M"
                             width: 50
                             height: input_birth.height-1
+                            onContainsMouseChanged: {
+                                if (containsMouse && parent.parent.error) {
+                                    parent.parent.fnShowErrorMessage("Welches Geschlecht hat die Person?")
+                                } else {
+                                    parent.parent.fnHideErrorMessage()
+                                }
+                            }
                             onCheckedChanged: {
                                 if (checked)
                                     input_female.checked = false
+                                parent.parent.fnCheckError();
                             }
+
+                            onActiveFocusChanged: {
+                                parent.parent.wholeFocus = activeFocus
+
+                            }
+
 
                             onClicked: {
                                 focus = true
                             }
+
                         }
                     }
+
+
                 }
             }
         }

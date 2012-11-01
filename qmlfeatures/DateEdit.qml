@@ -15,12 +15,16 @@ FocusScope {
     property alias textColor: dateField.textColor
     property alias fieldWidth: dateField.width
     property alias fieldHeight: dateField.height
+    property alias text: dateField.text
     property Item  ___datePicker
+    property bool validDate
 
     onFocusChanged: {
         if (dateEdit.activeFocus)
             dateField.forceActiveFocus();
     }
+
+
 
     function fnOpenCalendar(myFocus) {
         if (!myFocus) {
@@ -38,11 +42,11 @@ FocusScope {
                                                         pickedDate: theDate, opacity: 0})
             ___datePicker.opacity = 1
 
-
         }
     }
 
     function fnCloseCalendar(pickedDate, clear) {
+
         if (Qt.isQtObject(___datePicker)) {
             ___datePicker.opacity = 0
             ___datePicker.destroy(500)
@@ -52,6 +56,9 @@ FocusScope {
         if (QmlFeatureUtils.fnIsValidDate(pickedDate)) {
             dateField.text = Qt.formatDate(pickedDate, dateFormat)
             date = pickedDate
+            validDate = true
+        } else {
+            validDate = false
         }
 
     }
