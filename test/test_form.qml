@@ -46,14 +46,15 @@ Item {
 
                         KeyNavigation.tab: input_surname
                         onActiveFocusChanged: {
-                            if (activeFocus && parent.error) {
+                            var f = activeFocus || focus
+                            if (f && parent.error) {
                                 parent.fnShowErrorMessage("Einen Vornamen eingeben!")
                             }
 
-                            if (!activeFocus && input_forename.text.length == 0) {
+                            if (!f && input_forename.text.length == 0) {
                                 parent.error = true
                                 parent.fnHideErrorMessage()
-                            } else if (!activeFocus && input_forename.text.length > 0) {
+                            } else if (!f && input_forename.text.length > 0) {
                                 parent.error = false
                                 parent.fnHideErrorMessage()
                             }
@@ -146,7 +147,6 @@ Item {
                     labelMargin: 0
 
                     errorRectangle: sexErrorRec
-                    error: !input_male.checked & !input_female.checked
 
                     Label {
                         text: "Geschlecht"

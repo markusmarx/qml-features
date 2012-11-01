@@ -15,6 +15,7 @@ FocusScope {
     property alias textColor: dateField.textColor
     property alias fieldWidth: dateField.width
     property alias fieldHeight: dateField.height
+    property alias text: dateField.text
     property Item  ___datePicker
 
     onFocusChanged: {
