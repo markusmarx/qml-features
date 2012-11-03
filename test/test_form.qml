@@ -253,6 +253,22 @@ Item {
 
                 }
             }
+
+            LabelLayout {
+                labelPos: Qt.AlignTop
+
+
+                Label {
+                    text: "Time"
+                }
+
+                TimeEdit {
+
+                }
+
+
+            }
+
         }
     }
 

@@ -23,7 +23,8 @@ OTHER_FILES = qmldir \
     common/utils.js \
     DateEdit.qml \
     LabelLayout.qml \
-    ToolTip.qml
+    ToolTip.qml \
+    TimeEdit.qml
 
 QML_DIRS = images common
 
