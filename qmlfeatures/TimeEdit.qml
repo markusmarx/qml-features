@@ -2,7 +2,6 @@ import QtQuick 1.1
 import QtDesktop 0.1
 import "common/utils.js" as QmlFeatureUtils
 FocusScope {
-
     id: timeEdit
     width: timeField.width
     height: timeField.height
