@@ -30,6 +30,8 @@ Item {
 
         property int headerHeight: 20
 
+        property int duration: 400
+
     }
 
 
@@ -55,8 +57,8 @@ Item {
         fnUpdateHeader()
 
         d.anim = anim_viewzoomout_comp.createObject(d.currentView)
-        d.anim.startX = d.currentView.width/2 - currentViewScale.origin.x
-        d.anim.startY = d.currentView.height/2 - currentViewScale.origin.y
+        d.anim.startX = d.currentView.width/2 - currentViewScale.origin.x+10
+        d.anim.startY = d.currentView.height/2 - currentViewScale.origin.y+d.headerHeight
 
         d.anim.start()
 
@@ -550,14 +552,16 @@ Item {
 
                 target:d.currentView.myScale
                 properties: "xScale, yScale"
-                easing.type: Easing.InCurve
+                //easing.type: Easing.InCurve
                 from: 1; to: 0.5
+                duration: d.duration
             }
             PropertyAnimation {
                 target: d.nextView.myScale
                 properties: "xScale, yScale"
-                easing.type: Easing.OutCurve
+                //easing.type: Easing.OutCurve
                 from: 4; to: 1
+                duration: d.duration
             }
 
             PropertyAnimation {
@@ -565,6 +569,7 @@ Item {
                 property: "opacity"
                 easing.type: Easing.OutCurve
                 to: 1
+                duration: d.duration
             }
 
             PropertyAnimation {
@@ -572,6 +577,7 @@ Item {
                 properties: "x"
                 from: startX
                 to: calendarNavigation.width/2 - d.monthViewWidth/2
+                duration: d.duration
             }
 
             PropertyAnimation {
@@ -579,6 +585,7 @@ Item {
                 properties: "y"
                 from: startY
                 to: (calendarNavigation.height+d.headerHeight)/2 - d.monthViewHeight/2
+                duration: d.duration
             }
 
             PropertyAnimation {
@@ -586,6 +593,7 @@ Item {
                 property: "opacity"
                 easing.type: Easing.OutCurve
                 to: 0
+                duration: d.duration
             }
 
             onCompleted: {
@@ -609,12 +617,14 @@ Item {
                 properties: "xScale, yScale"
                 easing.type: Easing.InCurve
                 from: 0.3; to: 1
+                duration: d.duration
             }
             PropertyAnimation {
                 target: d.currentView.myScale
                 properties: "xScale, yScale"
                 easing.type: Easing.OutCurve
                 from: 1; to: 4
+                duration: d.duration
             }
 
             PropertyAnimation {
@@ -622,24 +632,28 @@ Item {
                 property: "opacity"
                 easing.type: Easing.OutCurve
                 to: 0
+                duration: d.duration
             }
             PropertyAnimation {
                 target: d.nextView
                 property: "opacity"
                 easing.type: Easing.InCurve
                 to: 1
+                duration: d.duration
             }
 
             PropertyAnimation {
                 target: d.currentView
                 properties: "x"
                 to: endX
+                duration: d.duration
             }
 
             PropertyAnimation {
                 target: d.currentView
                 properties: "y"
                 to: endY
+                duration: d.duration
             }
             onCompleted: {
                 fnAnimationComplete(anim_viewzoomin);
@@ -658,11 +672,13 @@ Item {
                 target: d.currentView
                 property: "x"
                 to: currentX
+                duration: d.duration
             }
             PropertyAnimation {
                 target: d.nextView
                 property: "x"
                 to: nextX
+                duration: d.duration
             }
             onCompleted:  fnAnimationComplete()
         }
