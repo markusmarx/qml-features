@@ -63,7 +63,7 @@ FocusScope {
 
     TextField {
         id:timeField
-
+        width: 100
         Keys.onEscapePressed: fnCloseTimePicker(time, true)
         Keys.onReturnPressed: fnCloseTimePicker(QmlUtil.parseTime(text, timeFormat), false)
         Keys.onTabPressed: {

@@ -14,7 +14,7 @@ Item {
         Label { text: "Wiederholung jede\nWoche am"}
 
         Row {
-
+            spacing: 5
             Repeater {
                 model:ListModel {
                     ListElement {name: "Mo"; flag: 1}

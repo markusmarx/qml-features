@@ -65,7 +65,6 @@ FocusScope {
 
     TextField {
         id:dateField
-
         Keys.onEscapePressed: fnCloseCalendar(date, true)
         Keys.onReturnPressed: fnCloseCalendar(QmlUtil.parseDate(text, dateFormat), false)
         Keys.onTabPressed: {

@@ -10,12 +10,22 @@ uri = QmlFeatures
 SOURCES += \
     qmlfeatures_plugin.cpp \
     myitem.cpp \
-    qmlutils.cpp
+    qmlutils.cpp \
+    DeclarativeScrollingDropArea.cpp \
+    DeclarativeMimeData.cpp \
+    DeclarativeDropArea.cpp \
+    DeclarativeDragDropEvent.cpp \
+    DeclarativeDragArea.cpp
 
 HEADERS += \
     qmlfeatures_plugin.h \
     myitem.h \
-    qmlutils.h
+    qmlutils.h \
+    DeclarativeMimeData.h \
+    DeclarativeDropArea.h \
+    DeclarativeDragDropEvent.h \
+    DeclarativeDragArea.h \
+    DeclarativeScrollingDropArea.h
 
 OTHER_FILES = qmldir \
     CalendarNavigation.qml \
