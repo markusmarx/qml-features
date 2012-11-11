@@ -24,7 +24,9 @@ FocusScope {
             dateField.forceActiveFocus();
     }
 
-
+    onDateChanged: {
+        dateField.text = Qt.formatDate(date, dateFormat)
+    }
 
     function fnOpenCalendar(myFocus) {
         if (!myFocus) {
@@ -54,7 +56,6 @@ FocusScope {
 
         if (clear) dateField.text = ""
         if (QmlFeatureUtils.fnIsValidDate(pickedDate)) {
-            dateField.text = Qt.formatDate(pickedDate, dateFormat)
             date = pickedDate
             validDate = true
         } else {
