@@ -19,8 +19,8 @@ bool QmlUtils::isValidDateTime(QVariant time) const
     return time.isValid() && time.type() == QVariant::DateTime;
 }
 
-QDateTime QmlUtils::join(QDateTime date, QDateTime time) const
+QDateTime QmlUtils::join(QDate date, QTime time) const
 {
-    date.setTime(time);
-    return date;
+
+    return QDateTime(date, time);
 }

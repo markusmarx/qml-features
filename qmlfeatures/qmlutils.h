@@ -12,6 +12,7 @@ public:
     Q_INVOKABLE QDate parseDate(QString date, QString format) const;
     Q_INVOKABLE QDateTime parseTime(QString time, QString format) const;
     Q_INVOKABLE bool isValidDateTime(QVariant time) const;
+    Q_INVOKABLE QDateTime join(QDate date, QTime time) const;
 };
 
 #endif // QMLUTILS_H
