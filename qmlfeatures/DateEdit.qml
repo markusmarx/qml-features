@@ -25,7 +25,12 @@ FocusScope {
     }
 
     onDateChanged: {
-        dateField.text = Qt.formatDate(date, dateFormat)
+        if (QmlFeatureUtils.fnIsValidDate(date)) {
+            dateField.text = Qt.formatDate(date, dateFormat)
+            validDate = true
+        } else {
+            validDate = false
+        }
     }
 
     function fnOpenCalendar(myFocus) {
@@ -55,12 +60,15 @@ FocusScope {
         }
 
         if (clear) dateField.text = ""
-        if (QmlFeatureUtils.fnIsValidDate(pickedDate)) {
-            date = pickedDate
-            validDate = true
-        } else {
-            validDate = false
-        }
+
+        date = pickedDate
+
+//        if (QmlFeatureUtils.fnIsValidDate(pickedDate)) {
+
+//            validDate = true
+//        } else {
+//            validDate = false
+//        }
 
     }
 
