@@ -23,7 +23,13 @@ FocusScope {
     }
 
     onTimeChanged: {
-        timeField.text = Qt.formatTime(time, timeFormat)
+        if (QmlUtil.isValidDateTime(time)) {
+            validTime = true
+            timeField.text = Qt.formatTime(time, timeFormat)
+        } else {
+            validTime = false
+        }
+
     }
 
     function fnOpenTimePicker(myFocus) {
@@ -54,13 +60,7 @@ FocusScope {
 
         if (clear) timeField.text = ""
 
-        if (QmlUtil.isValidDateTime(pickedTime)) {
-            time = pickedTime
-            validTime = true
-        } else {
-            validTime = false
-        }
-        console.log("time is" + time)
+        time = pickedTime
 
     }
 

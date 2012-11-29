@@ -22,11 +22,6 @@ Item {
         var root = Utils.fnGetItemRoot(label_layout)
         _errorMessage = errorMessage.createObject(root, {message: message, opacity: 0})
         _errorMessage.opacity = 1
-        var pos = root.mapFromItem(label_layout, label_layout.width,
-                                   _errorMessage.anchor == Qt.AlignBottom?label_layout.y+label_layout.height: label_layout.y)
-
-        _errorMessage.y = _errorMessage.anchor == Qt.AlignBottom?pos.y:pos.y-_errorMessage.height
-        _errorMessage.x = pos.x - label_layout.width/4 - _errorMessage.width/2
     }
 
     function fnHideErrorMessage() {
@@ -116,13 +111,6 @@ Item {
 
         }
 
-    }
-
-    Component {
-        id: _labelComp
-        Label {
-
-        }
     }
 
 }
