@@ -36,6 +36,8 @@ Item {
         }
     }
 
+
+
     onErrorChanged: {
         if (error && Qt.isQtObject(errorRectangle)) {
             _errorRectangleItem = errorRectangle.createObject(
