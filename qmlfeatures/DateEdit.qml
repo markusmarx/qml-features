@@ -62,14 +62,6 @@ FocusScope {
         if (clear) dateField.text = ""
 
         date = pickedDate
-
-//        if (QmlFeatureUtils.fnIsValidDate(pickedDate)) {
-
-//            validDate = true
-//        } else {
-//            validDate = false
-//        }
-
     }
 
     TextField {

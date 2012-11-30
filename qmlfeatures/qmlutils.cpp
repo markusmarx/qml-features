@@ -16,7 +16,7 @@ QDateTime QmlUtils::parseTime(QString time, QString format) const
 
 bool QmlUtils::isValidDateTime(QVariant time) const
 {
-    return time.isValid() && time.type() == QVariant::DateTime;
+    return time.isValid() && time.type() == QVariant::DateTime && time.toDateTime().time().isValid();
 }
 
 QDateTime QmlUtils::join(QDate date, QTime time) const

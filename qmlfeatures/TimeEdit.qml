@@ -23,11 +23,14 @@ FocusScope {
     }
 
     onTimeChanged: {
+
         if (QmlUtil.isValidDateTime(time)) {
             validTime = true
             timeField.text = Qt.formatTime(time, timeFormat)
+
         } else {
             validTime = false
+
         }
 
     }
