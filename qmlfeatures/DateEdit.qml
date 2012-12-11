@@ -33,6 +33,10 @@ FocusScope {
         }
     }
 
+    Component.onDestruction: {
+        ___datePicker.destroy()
+    }
+
     function fnOpenCalendar(myFocus) {
         if (!myFocus) {
             fnCloseCalendar(QmlUtil.parseDate(dateField.text, dateFormat), false)
@@ -76,7 +80,10 @@ FocusScope {
         onActiveFocusChanged: {
             fnOpenCalendar(parent.focus)
         }
+
+
     }
+
     CursorArea {
         anchors.fill: parent
         cursor: Qt.ArrowCursor

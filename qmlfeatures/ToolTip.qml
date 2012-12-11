@@ -1,6 +1,5 @@
 import QtQuick 1.1
 
-
 Item {
     property int anchor: Qt.AlignBottom
     Image {
@@ -24,10 +23,10 @@ Item {
         children[2].parent = background
 
         if (anchor == Qt.AlignBottom) {
-            background.anchors.topMargin = 8
+            background.anchors.topMargin = arrow_image.height
             arrow_image.anchors.top = top
         } else if (anchor == Qt.AlignTop) {
-            background.anchors.bottomMargin = 8
+            background.anchors.bottomMargin = arrow_image.height
             arrow_image.rotation = 180
             arrow_image.anchors.bottom = bottom
         }

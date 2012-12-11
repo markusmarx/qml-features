@@ -567,7 +567,7 @@ Item {
             PropertyAnimation {
                 target: d.nextView
                 property: "opacity"
-                easing.type: Easing.OutCurve
+                //easing.type: Easing.OutCurve
                 to: 1
                 duration: d.duration
             }
@@ -591,7 +591,7 @@ Item {
             PropertyAnimation {
                 target: d.currentView
                 property: "opacity"
-                easing.type: Easing.OutCurve
+                //easing.type: Easing.OutCurve
                 to: 0
                 duration: d.duration
             }
@@ -615,14 +615,14 @@ Item {
 
                 target: d.nextView.myScale
                 properties: "xScale, yScale"
-                easing.type: Easing.InCurve
+                //easing.type: Easing.InCurve
                 from: 0.3; to: 1
                 duration: d.duration
             }
             PropertyAnimation {
                 target: d.currentView.myScale
                 properties: "xScale, yScale"
-                easing.type: Easing.OutCurve
+                //easing.type: Easing.OutCurve
                 from: 1; to: 4
                 duration: d.duration
             }
@@ -630,14 +630,14 @@ Item {
             PropertyAnimation {
                 target: d.currentView
                 property: "opacity"
-                easing.type: Easing.OutCurve
+                //easing.type: Easing.OutCurve
                 to: 0
                 duration: d.duration
             }
             PropertyAnimation {
                 target: d.nextView
                 property: "opacity"
-                easing.type: Easing.InCurve
+                //easing.type: Easing.InCurve
                 to: 1
                 duration: d.duration
             }
