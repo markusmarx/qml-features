@@ -83,6 +83,7 @@ FocusScope {
 
     }
     Image {
+        id:date_image
         source: "images/calendar.svg"
         width: 16
         height: 16
@@ -113,9 +114,9 @@ FocusScope {
 
             Component.onCompleted: {
                 opacity = 1
-                var pos = dateEdit.mapToItem(parent, dateEdit.x+dateEdit.width-10, dateEdit.y)
-                x = pos.x - width/2 - 16 - 5
-                y = pos.y + dateField.height - 20
+                var pos = dateEdit.mapToItem(parent, dateField.x, dateField.y)
+                x = pos.x+dateField.width-width/2 - date_image.width/2 - date_image.anchors.rightMargin+2
+                y = pos.y + dateField.height
             }
 
             onDayPicked: {
